@@ -8,7 +8,7 @@ function BtnDownload() {
 
   const handleDownload = () => {
     const fileContent = stateCases
-      .map((c: Case) => `${c.customerName}, ${c.startDate}, ${c.isFinished}`)
+      .map((c: Case) => `customerName: '${c.customerName}', startDate: '${c.startDate}', isFinished: ${c.isFinished}`)
       .join("\n");
 
     const blob = new Blob([fileContent], { type: "text/plain" });

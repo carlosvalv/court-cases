@@ -16,7 +16,12 @@ export const casesSlice = createSlice({
       setLocalStorage(LocalStorageTypes.CASES, JSON.stringify(newState));
       return newState;
     },
+    replaceCase: (state, action) => {
+      const newState = action.payload;
+      setLocalStorage(LocalStorageTypes.CASES, JSON.stringify(newState));
+      return newState;
+    },
   },
 });
 
-export const { addCase } = casesSlice.actions;
+export const { addCase, replaceCase } = casesSlice.actions;
