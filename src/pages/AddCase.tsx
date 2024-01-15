@@ -126,9 +126,9 @@ function AddCase() {
       default:
       case AddStep.NAME:
       case AddStep.DATE:
-        return "Next step";
+        return "Next";
       case AddStep.IS_FINISHED:
-        return "Send";
+        return "Finish";
     }
   };
 
