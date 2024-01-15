@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Case } from "../types/case";
-import { Button, TextField } from "@mui/material";
+import { Button, Snackbar, TextField } from "@mui/material";
 import { AddStep } from "../enums/case";
 import styled from "@emotion/styled";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -28,6 +28,7 @@ const LayoutForm = styled.div`
 function AddCase() {
   const [newCase, setNewCase] = useState<Case>({ id: uuidv4() });
   const [step, setStep] = useState<AddStep>(AddStep.NAME);
+  const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,6 +37,7 @@ function AddCase() {
     dispatch(addCase(newCase));
     setNewCase({ id: uuidv4() });
     setStep(AddStep.NAME);
+    setOpenSnackbar(true);
   }, [step, dispatch, newCase]);
 
   const renderInput = () => {
@@ -57,7 +59,10 @@ function AddCase() {
           <DatePicker
             label="Date"
             onChange={(value: any) =>
-              setNewCase({ ...newCase, startDate: dateToStringFormat(value.$d) })
+              setNewCase({
+                ...newCase,
+                startDate: dateToStringFormat(value.$d),
+              })
             }
           />
         );
@@ -116,6 +121,17 @@ function AddCase() {
     }
   };
 
+  const btnText = () => {
+    switch (step) {
+      default:
+      case AddStep.NAME:
+      case AddStep.DATE:
+        return "Next step";
+      case AddStep.IS_FINISHED:
+        return "Send";
+    }
+  };
+
   return (
     <Container>
       <h1>Add a new court case to the system</h1>
@@ -124,8 +140,14 @@ function AddCase() {
         {renderInput()}
       </LayoutForm>
       <Button onClick={nextStep} variant="outlined" disabled={checkDisabled()}>
-        Next step
+        {btnText()}
       </Button>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={()=>{setOpenSnackbar(false)}}
+        message="Case added!"
+      />
     </Container>
   );
 }

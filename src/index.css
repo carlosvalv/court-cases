@@ -14,4 +14,14 @@ code {
 
 h1{
   font-weight: 600;
+  margin:0;
+}
+
+h2{
+  font-weight: 400;
+  margin:0;
+}
+
+a{
+  text-decoration: none;
 }

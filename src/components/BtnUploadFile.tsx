@@ -1,5 +1,5 @@
-import { Button } from "@mui/material";
-import React from "react";
+import { Button, Snackbar } from "@mui/material";
+import React, { useState } from "react";
 import { Case } from "../types/case";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import { replaceCase } from "../redux/states/case";
 function UploadFile() {
   const dispatch = useDispatch();
   const inputFileRef = React.useRef<HTMLInputElement>(null);
+  const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileInput = event.target;
@@ -42,10 +43,9 @@ function UploadFile() {
                 typeof c.isFinished === "boolean"
             );
           dispatch(replaceCase(newCases));
-          alert("Cases loaded from the file!");
+          setOpenSnackbar(true);
         } catch (error) {
           console.error("Error parsing file:", error);
-          alert("Error parsing the file. Please check the file format.");
         }
       };
 
@@ -69,6 +69,14 @@ function UploadFile() {
       >
         Upload File
       </Button>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => {
+          setOpenSnackbar(false);
+        }}
+        message="Cases added!"
+      />
     </>
   );
 }
