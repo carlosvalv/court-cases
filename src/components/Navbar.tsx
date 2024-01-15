@@ -1,13 +1,12 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 import BtnDownload from "./BtnDownload";
+import NavMenu from "./NavMenu";
 
 function Navbar() {
   return (
     <AppBar>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Court cases
-        </Typography>
+        <NavMenu />
         <BtnDownload />
       </Toolbar>
     </AppBar>

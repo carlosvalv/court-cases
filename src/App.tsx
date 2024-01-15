@@ -4,6 +4,18 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import store from "./redux/store";
 import Navbar from "./components/Navbar";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <div>List</div>,
+  },
+  {
+    path: "/add",
+    element: <AddCase />,
+  },
+]);
 
 function App() {
   return (
@@ -11,7 +23,7 @@ function App() {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Navbar />
         <div style={{ marginTop: 64 }}>
-          <AddCase />
+        <RouterProvider router={router} />
         </div>
       </LocalizationProvider>
     </Provider>
