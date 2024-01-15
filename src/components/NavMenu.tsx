@@ -34,19 +34,19 @@ function NavMenu() {
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
         sx={{
-          display: { xs: "block", md: "none" },
+          display: { xs: "block", md: "block" },
         }}
       >
-        <MenuItem onClick={handleCloseNavMenu}>
-          <Typography textAlign="center">
-            <a href="/">List</a>
-          </Typography>
-        </MenuItem>
-        <MenuItem onClick={handleCloseNavMenu}>
-          <Typography textAlign="center">
-            <a href="add">Add</a>
-          </Typography>
-        </MenuItem>
+        <a href="/">
+          <MenuItem onClick={handleCloseNavMenu}>
+            <Typography textAlign="center">List</Typography>
+          </MenuItem>
+        </a>
+        <a href="add">
+          <MenuItem onClick={handleCloseNavMenu}>
+            <Typography textAlign="center">Add</Typography>
+          </MenuItem>
+        </a>
       </Menu>
     </Box>
   );

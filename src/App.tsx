@@ -5,11 +5,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import store from "./redux/store";
 import Navbar from "./components/Navbar";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import ListCases from "./pages/ListCases";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>List</div>,
+    element: <ListCases />,
   },
   {
     path: "/add",

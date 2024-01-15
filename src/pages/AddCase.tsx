@@ -8,6 +8,7 @@ import SelectFinished from "../components/SelectFinished";
 import { useDispatch } from "react-redux";
 import { addCase } from "../redux/states/case";
 import { dateToStringFormat } from "../utilities/dates";
+import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
   padding: 1em;
@@ -25,17 +26,17 @@ const LayoutForm = styled.div`
 `;
 
 function AddCase() {
-  const [newCase, setNewCase] = useState<Case>({});
+  const [newCase, setNewCase] = useState<Case>({ id: uuidv4() });
   const [step, setStep] = useState<AddStep>(AddStep.NAME);
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    if(step !== AddStep.SAVE) return;
+  useEffect(() => {
+    if (step !== AddStep.SAVE) return;
     //call api post here
     dispatch(addCase(newCase));
-    setNewCase({});
+    setNewCase({ id: uuidv4() });
     setStep(AddStep.NAME);
-  },[step, dispatch, newCase])
+  }, [step, dispatch, newCase]);
 
   const renderInput = () => {
     switch (step) {
