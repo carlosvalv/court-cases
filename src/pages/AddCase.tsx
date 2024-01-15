@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Case } from "../types/case";
 import { Button, TextField } from "@mui/material";
 import { AddStep } from "../enums/case";
@@ -24,6 +24,14 @@ const LayoutForm = styled.div`
 function AddCase() {
   const [newCase, setNewCase] = useState<Case>({});
   const [step, setStep] = useState<AddStep>(AddStep.NAME);
+
+  useEffect(()=>{
+    if(step !== AddStep.SAVE) return;
+    //call api post here
+    //save cases in redux
+    setNewCase({});
+    setStep(AddStep.NAME);
+  },[step])
 
   const renderInput = () => {
     switch (step) {
@@ -84,7 +92,7 @@ function AddCase() {
         setStep(AddStep.IS_FINISHED);
         break;
       case AddStep.IS_FINISHED:
-        setStep(AddStep.NAME);
+        setStep(AddStep.SAVE);
         break;
     }
   };
@@ -98,6 +106,8 @@ function AddCase() {
         return !newCase.startDate;
       case AddStep.IS_FINISHED:
         return newCase.isFinished === undefined;
+      case AddStep.SAVE:
+        return true;
     }
   };
 
