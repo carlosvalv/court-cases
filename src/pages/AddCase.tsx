@@ -5,6 +5,9 @@ import { AddStep } from "../enums/case";
 import styled from "@emotion/styled";
 import { DatePicker } from "@mui/x-date-pickers";
 import SelectFinished from "../components/SelectFinished";
+import { useDispatch } from "react-redux";
+import { addCase } from "../redux/states/case";
+import { dateToStringFormat } from "../utilities/dates";
 
 const Container = styled.div`
   padding: 1em;
@@ -24,14 +27,15 @@ const LayoutForm = styled.div`
 function AddCase() {
   const [newCase, setNewCase] = useState<Case>({});
   const [step, setStep] = useState<AddStep>(AddStep.NAME);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     if(step !== AddStep.SAVE) return;
     //call api post here
-    //save cases in redux
+    dispatch(addCase(newCase));
     setNewCase({});
     setStep(AddStep.NAME);
-  },[step])
+  },[step, dispatch, newCase])
 
   const renderInput = () => {
     switch (step) {
@@ -52,7 +56,7 @@ function AddCase() {
           <DatePicker
             label="Date"
             onChange={(value: any) =>
-              setNewCase({ ...newCase, startDate: value.$d })
+              setNewCase({ ...newCase, startDate: dateToStringFormat(value.$d) })
             }
           />
         );
