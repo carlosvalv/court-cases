@@ -1,9 +1,10 @@
 import './App.css';
+import AddCase from './pages/AddCase';
 
 function App() {
   return (
     <div className="App">
-      Court cases
+      <AddCase />
     </div>
   );
 }
